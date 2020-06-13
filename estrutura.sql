@@ -21,7 +21,7 @@ SET search_path TO "imobiliaria";
 
 CREATE TABLE imovel(
 	id_imovel integer NOT NULL,
-	tipo_imovel integer NOT NULL,
+	tipo_imovel varchar(30) NOT NULL,
 	status boolean NOT NULL,
 	foto varchar(50) NOT NULL,
 	data_construcao date NOT NULL,
