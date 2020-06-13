@@ -123,7 +123,7 @@ CREATE TABLE contrato(
 	id_contrato integer NOT NULL,
 	comissao decimal NOT NULL,
 	data_trans date NOT NULL,
-	forma_pag varchar(40) NOT NULL,
+	forma_pag integer NOT NULL,
 	funcionario integer NOT NULL,
 	imovel_id integer NOT NULL
 	);
