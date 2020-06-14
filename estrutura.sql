@@ -51,8 +51,8 @@ CREATE TABLE condominio(
 	id_cond integer NOT NULL,
 	nome varchar(40) NOT NULL,
 	portaria boolean NOT NULL,
-	academia boolean NOT NULL,
-)
+	academia boolean NOT NULL
+	);
 
 CREATE TABLE apartamento(
 	id_apt integer NOT NULL,
