@@ -19,23 +19,6 @@ CREATE SCHEMA "imobiliaria"
 
 SET search_path TO "imobiliaria";
 
-CREATE TABLE imovel(
-	id_imovel integer NOT NULL,
-	tipo_imovel varchar(30) NOT NULL,
-	status boolean NOT NULL,
-	foto varchar(50) NOT NULL,
-	data_construcao date NOT NULL,
-	area numeric,
-	valor_real decimal NOT NULL,
-	valor_imobiliaria decimal NOT NULL, 
-	data_disp date NOT NULL, 
-	rua varchar(30) NOT NULL,
-	numero integer NOT NULL,
-	bairro varchar(20) NOT NULL,
-	cidade varchar(30) NOT NULL,
-	estado varchar(30) NOT NULL
-	);
-
 CREATE TABLE casa(
 	id_casa integer NOT NULL,
 	qtd_quartos integer NOT NULL,
@@ -73,6 +56,23 @@ CREATE TABLE terreno(
 	comprimento decimal NOT NULL,
 	declive varchar(8) NOT NULL
 	);
+	
+CREATE TABLE imovel(
+	id_imovel integer NOT NULL,
+	tipo_imovel varchar(30) NOT NULL,
+	status boolean NOT NULL,
+	foto varchar(50) NOT NULL,
+	data_construcao date NOT NULL,
+	area numeric,
+	valor_real decimal NOT NULL,
+	valor_imobiliaria decimal NOT NULL, 
+	data_disp date NOT NULL, 
+	rua varchar(30) NOT NULL,
+	numero integer NOT NULL,
+	bairro varchar(20) NOT NULL,
+	cidade varchar(30) NOT NULL,
+	estado varchar(30) NOT NULL
+	);
 
 CREATE TABLE cliente(
     id_cliente integer NOT NULL,
@@ -89,6 +89,14 @@ CREATE TABLE cliente(
 	estado varchar(30) NOT NULL,
 	CONSTRAINT empregado_sexo_check CHECK ((sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar])))
 	);
+	
+	
+CREATE TABLE cargo(
+	id integer NOT NULL,
+	nome varchar(40) NOT NULL,
+	salario decimal NOT NULL
+	);
+
 
 CREATE TABLE funcionario(
     id_func integer NOT NULL,
@@ -106,12 +114,6 @@ CREATE TABLE funcionario(
 	bairro varchar(20) NOT NULL,
 	cidade varchar(30) NOT NULL,
 	estado varchar(30)NOT NULL
-	);
-
-CREATE TABLE cargo(
-	id integer NOT NULL,
-	nome varchar(40) NOT NULL,
-	salario decimal NOT NULL
 	);
 
 CREATE TABLE forma_pagamento(
