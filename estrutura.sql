@@ -19,44 +19,6 @@ CREATE SCHEMA "imobiliaria"
 
 SET search_path TO "imobiliaria";
 
-CREATE TABLE casa(
-	id_casa integer NOT NULL,
-	qtd_quartos integer NOT NULL,
-	qtd_suites integer,
-	qtd_salaestar integer NOT NULL, 
-	qtd_salajantar integer, 
-	num_vagas integer NOT NULL,
-	armario boolean NOT NULL,
-	descricao varchar(100)
-	);
-
-CREATE TABLE apartamento(
-	id_apt integer NOT NULL,
-	qtd_quartos integer NOT NULL,
-	qtd_suites integer,
-	qtd_salaestar integer NOT NULL, 
-	qtd_salajantar integer, 
-	num_vagas integer NOT NULL,
-	armario boolean NOT NULL,
-	descricao varchar(100),
-	andar integer NOT NULL,
-	valor_condominio decimal NOT NULL,
-	portaria boolean NOT NULL
-	);
-
-CREATE TABLE comercial(
-	id_comerc integer NOT NULL,
-	qtd_banheiros integer NOT NULL,
-	qtd_comodos integer NOT NULL
-	);
-
-CREATE TABLE terreno(
-	id_terreno integer NOT NULL,
-	largura decimal NOT NULL,
-	comprimento decimal NOT NULL,
-	declive varchar(8) NOT NULL
-	);
-	
 CREATE TABLE imovel(
 	id_imovel integer NOT NULL,
 	tipo_imovel varchar(30) NOT NULL,
@@ -74,6 +36,51 @@ CREATE TABLE imovel(
 	estado varchar(30) NOT NULL
 	);
 
+CREATE TABLE casa(
+	id_casa integer NOT NULL,
+	qtd_quartos integer NOT NULL,
+	qtd_suites integer,
+	qtd_salaestar integer NOT NULL, 
+	qtd_salajantar integer, 
+	num_vagas integer NOT NULL,
+	armario boolean NOT NULL,
+	descricao varchar(100)
+	);
+
+CREATE TABLE condominio(
+	id_cond integer NOT NULL,
+	nome varchar(40) NOT NULL,
+	portaria boolean NOT NULL,
+	academia boolean NOT NULL,
+)
+
+CREATE TABLE apartamento(
+	id_apt integer NOT NULL,
+	qtd_quartos integer NOT NULL,
+	qtd_suites integer,
+	qtd_salaestar integer NOT NULL, 
+	qtd_salajantar integer, 
+	num_vagas integer NOT NULL,
+	armario boolean NOT NULL,
+	descricao varchar(100),
+	andar integer NOT NULL,
+	valor_condominio decimal NOT NULL,
+	condominio integer NOT NULL
+	);
+
+CREATE TABLE comercial(
+	id_comerc integer NOT NULL,
+	qtd_banheiros integer NOT NULL,
+	qtd_comodos integer NOT NULL
+	);
+
+CREATE TABLE terreno(
+	id_terreno integer NOT NULL,
+	largura decimal NOT NULL,
+	comprimento decimal NOT NULL,
+	declive varchar(8) NOT NULL
+	);
+
 CREATE TABLE cliente(
     id_cliente integer NOT NULL,
 	cpf varchar(11) NOT NULL,
@@ -89,14 +96,6 @@ CREATE TABLE cliente(
 	estado varchar(30) NOT NULL,
 	CONSTRAINT empregado_sexo_check CHECK ((sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar])))
 	);
-	
-	
-CREATE TABLE cargo(
-	id integer NOT NULL,
-	nome varchar(40) NOT NULL,
-	salario decimal NOT NULL
-	);
-
 
 CREATE TABLE funcionario(
     id_func integer NOT NULL,
@@ -114,6 +113,12 @@ CREATE TABLE funcionario(
 	bairro varchar(20) NOT NULL,
 	cidade varchar(30) NOT NULL,
 	estado varchar(30)NOT NULL
+	);
+
+CREATE TABLE cargo(
+	id integer NOT NULL,
+	nome varchar(40) NOT NULL,
+	salario decimal NOT NULL
 	);
 
 CREATE TABLE forma_pagamento(
@@ -158,6 +163,9 @@ ALTER TABLE imovel
 ALTER TABLE casa
 	ADD CONSTRAINT casa_pkey PRIMARY KEY (id_casa);
 
+ALTER TABLE condominio
+	ADD CONSTRAINT condominio_pkey PRIMARY KEY (id_cond);
+
 ALTER TABLE apartamento
 	ADD CONSTRAINT apartamento_pkey PRIMARY KEY (id_apt);
 
@@ -199,6 +207,9 @@ ALTER TABLE imovel
 
 ALTER TABLE imovel
     ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES terreno(id_terreno);
+
+ALTER TABLE apartamento
+    ADD CONSTRAINT apt_condominio FOREIGN KEY (condominio) REFERENCES condominio(id_cond);
 
 ALTER TABLE funcionario
     ADD CONSTRAINT cargo_func FOREIGN KEY (id_cargo) REFERENCES cargo(id);
