@@ -149,3 +149,81 @@ CREATE TABLE pertence(
 	cliente_cpf varchar(11) NOT NULL,
 	imovel integer NOT NULL
 	);
+
+ALTER TABLE imovel
+	ADD CONSTRAINT imovel_pkey PRIMARY KEY (id_imovel);
+
+ALTER TABLE casa
+	ADD CONSTRAINT casa_pkey PRIMARY KEY (id_casa);
+
+ALTER TABLE apartamento
+	ADD CONSTRAINT apartamento_pkey PRIMARY KEY (id_apt);
+
+ALTER TABLE comercial
+	ADD CONSTRAINT comercial_pkey PRIMARY KEY (id_comerc);
+
+ALTER TABLE terreno
+	ADD CONSTRAINT terreno_pkey PRIMARY KEY (id_terreno);
+
+ALTER TABLE cliente
+	ADD CONSTRAINT cliente_pkey PRIMARY KEY (cpf);
+
+ALTER TABLE funcionario
+	ADD CONSTRAINT func_pkey PRIMARY KEY (id_func);
+
+ALTER TABLE cargo
+	ADD CONSTRAINT cargo_pkey PRIMARY KEY (id);
+
+ALTER TABLE forma_pagamento
+	ADD CONSTRAINT pagamento_pkey PRIMARY KEY (id_pagar);
+
+ALTER TABLE contrato
+	ADD CONSTRAINT contrato_pkey PRIMARY KEY (id_contrato);
+
+ALTER TABLE aluga
+	ADD CONSTRAINT aluga_pkey PRIMARY KEY (id_aluguel);
+
+ALTER TABLE pertence
+	ADD CONSTRAINT pertence_pkey PRIMARY KEY (id_pertence);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES casa(id_casa);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_apt FOREIGN KEY (id_imovel) REFERENCES apartamento(id_apt);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_comercial FOREIGN KEY (id_imovel) REFERENCES comercial(id_comerc);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES terreno(id_terreno);
+
+ALTER TABLE funcionario
+    ADD CONSTRAINT cargo_func FOREIGN KEY (id_cargo) REFERENCES cargo(id);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT pagamento_contrato FOREIGN KEY (forma_pag) REFERENCES forma_pagamento(id_pagar);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT funcionario_contrato FOREIGN KEY (funcionario) REFERENCES funcionario(id_func);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT imovel_contrato FOREIGN KEY (imovel_id) REFERENCES imovel(id_imovel);
+
+ALTER TABLE aluga
+    ADD CONSTRAINT aluguel_contrato FOREIGN KEY (contrato) REFERENCES contrato(id_contrato);
+
+ALTER TABLE aluga
+    ADD CONSTRAINT aluguel_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
+
+ALTER TABLE compra
+    ADD CONSTRAINT compra_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
+
+ALTER TABLE compra
+    ADD CONSTRAINT compra_contrato FOREIGN KEY (contrato) REFERENCES contrato(id_contrato);
+
+ALTER TABLE pertence
+    ADD CONSTRAINT pertence_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
+
+ALTER TABLE pertence
+    ADD CONSTRAINT pertence_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
