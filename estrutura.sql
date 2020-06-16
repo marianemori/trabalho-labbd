@@ -157,6 +157,14 @@ CREATE TABLE pertence(
 	imovel integer NOT NULL
 	);
 
+CREATE TABLE fiscaliza(
+	id_fiscaliza integer NOT NULL,
+	situacao varchar(200) NOT NULL,
+	data date NOT NULL,
+	funcionario varchar(11) NOT NULL,
+	imovel integer NOT NULL
+	);
+
 ALTER TABLE imovel
 	ADD CONSTRAINT imovel_pkey PRIMARY KEY (id_imovel);
 
@@ -195,6 +203,9 @@ ALTER TABLE aluga
 
 ALTER TABLE pertence
 	ADD CONSTRAINT pertence_pkey PRIMARY KEY (id_pertence);
+
+ALTER TABLE fiscaliza
+	ADD CONSTRAINT fiscaliza_pkey PRIMARY KEY id_fiscaliza);
 
 ALTER TABLE imovel
     ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES casa(id_casa);
@@ -240,3 +251,9 @@ ALTER TABLE pertence
 
 ALTER TABLE pertence
     ADD CONSTRAINT pertence_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
+
+ALTER TABLE fiscaliza
+    ADD CONSTRAINT fiscaliza_funcionario FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
+
+ALTER TABLE fiscaliza
+    ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
