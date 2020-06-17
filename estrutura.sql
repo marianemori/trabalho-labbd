@@ -148,11 +148,22 @@ CREATE TABLE RealizaContrato(
 	fiador varchar(100), -- pelo menos um e somente aluguel
 	indicacoes varchar(100), -- confirmar como fazer, pelo menos 2 e somento aluguel
 	tipo_transacao varchar(100) NOT NULL
-	);
+	id_casa integer,
+	id_comercial integer,
+	id_terreno integer,
+	id_apartamento integer,
+	cpf_funcionario varchar(11) NOT NULL,
+	cpf_ClienteDono varchar(11) NOT NULL,
+	cpf_ClienteInteressado varchar(11) NOT NULL --esse é o cara que pode ser comprador ou locatário
+);
 
 CREATE TABLE fiscaliza(
 	situacao varchar(200) NOT NULL,
 	data date NOT NULL,
+	id_casa integer,
+	id_comercial integer,
+	id_terreno integer,
+	id_apartamento integer
 );
 
 
@@ -198,3 +209,5 @@ ALTER TABLE contrato
 
 ALTER TABLE contrato
     ADD CONSTRAINT imovel_contrato FOREIGN KEY (imovel_id) REFERENCES imovel(id_imovel);
+
+--foreign key ATRIBUTO EXISTENTE references TABELA(VARIAVEL DA TABELA)
