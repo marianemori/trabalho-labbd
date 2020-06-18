@@ -20,10 +20,9 @@ CREATE SCHEMA "imobiliaria"
 SET search_path TO "imobiliaria";
 
 CREATE TABLE imovel(
-	id_imovel integer NOT NULL,
-	tipo_imovel varchar(30) NOT NULL,
-	status boolean NOT NULL,
-	foto varchar(50) NOT NULL,
+	id_imovel integer SERIAL NOT NULL,
+	estado_atual boolean NOT NULL,
+	foto bytea NOT NULL,
 	data_construcao date NOT NULL,
 	area numeric,
 	valor_real decimal NOT NULL,
@@ -37,7 +36,7 @@ CREATE TABLE imovel(
 	);
 
 CREATE TABLE casa(
-	id_casa integer NOT NULL,
+	id_casa integer SERIAL NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -51,11 +50,12 @@ CREATE TABLE condominio(
 	id_cond integer NOT NULL,
 	nome varchar(40) NOT NULL,
 	portaria boolean NOT NULL,
-	academia boolean NOT NULL
-	);
+	academia boolean NOT NULL,
+	valor_condominio decimal NOT NULL,
+	)
 
 CREATE TABLE apartamento(
-	id_apt integer NOT NULL,
+	id_apt integer SERIAL NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -64,25 +64,23 @@ CREATE TABLE apartamento(
 	armario boolean NOT NULL,
 	descricao varchar(100),
 	andar integer NOT NULL,
-	valor_condominio decimal NOT NULL,
 	condominio integer NOT NULL
 	);
 
 CREATE TABLE comercial(
-	id_comerc integer NOT NULL,
+	id_comerc integer SERIAL NOT NULL,
 	qtd_banheiros integer NOT NULL,
-	qtd_comodos integer NOT NULL
+	qtd_comodos integer NOT NULL,
 	);
 
 CREATE TABLE terreno(
-	id_terreno integer NOT NULL,
+	id_terreno integer SERIAL NOT NULL,
 	largura decimal NOT NULL,
 	comprimento decimal NOT NULL,
 	declive varchar(8) NOT NULL
-	);
+);
 
 CREATE TABLE cliente(
-    id_cliente integer NOT NULL,
 	cpf varchar(11) NOT NULL,
 	nome varchar(40) NOT NULL,
 	telefone varchar(15) NOT NULL,
@@ -94,13 +92,16 @@ CREATE TABLE cliente(
 	bairro varchar(20) NOT NULL,
 	cidade varchar(30) NOT NULL,
 	estado varchar(30) NOT NULL,
+	comprador BOOLEAN,
+	locatario BOOLEAN,
+	proprietario BOOLEAN,
+	email varchar(100) NOT NULL,
 	CONSTRAINT empregado_sexo_check CHECK ((sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar])))
-	);
+);
 
 CREATE TABLE funcionario(
-    id_func integer NOT NULL,
 	cpf varchar(11) NOT NULL,
-	id_cargo integer NOT NULL,
+	cargo varchar(100) NOT NULL,
 	nome varchar(40) NOT NULL,
 	tel_contato varchar(15) NOT NULL,
 	tel_celular varchar(15),
@@ -115,97 +116,65 @@ CREATE TABLE funcionario(
 	estado varchar(30)NOT NULL
 	);
 
-CREATE TABLE cargo(
-	id integer NOT NULL,
-	nome varchar(40) NOT NULL,
-	salario decimal NOT NULL
-	);
-
-CREATE TABLE forma_pagamento(
-	id_pagar integer NOT NULL,
-	forma varchar(40) NOT NULL
-	);
-
 CREATE TABLE contrato(
-	id_contrato integer NOT NULL,
+	id_contrato integer SERIAL NOT NULL,
 	comissao decimal NOT NULL,
 	data_trans date NOT NULL,
-	forma_pag integer NOT NULL,
-	funcionario integer NOT NULL,
-	imovel_id integer NOT NULL
-	);
-
-CREATE TABLE aluga(
-	id_aluguel integer NOT NULL,
-	cliente_cpf varchar(11) NOT NULL,
-	data date NOT NULL,
-	contrato integer NOT NULL,
-	fiador varchar(100) NOT NULL,
-	indicacao varchar(100) NOT NULL
-	);
-
-CREATE TABLE compra(
-	id_compra integer NOT NULL,
-	cliente_cpf varchar(11) NOT NULL,
-	data date NOT NULL,
-	contrato integer NOT NULL
-	);
-
-CREATE TABLE pertence(
-	id_pertence integer NOT NULL,
-	cliente_cpf varchar(11) NOT NULL,
-	imovel integer NOT NULL
-	);
+	forma_pag varchar(100) NOT NULL,
+	funcionario varchar(11) NOT NULL,
+	imovel_id integer NOT NULL,
+	fiador varchar(100),
+	indicacoes varchar(100),
+	transacao varchar(50) NOT NULL,
+	cliente varchar(11) NOT NULL
+);
 
 CREATE TABLE fiscaliza(
-	id_fiscaliza integer NOT NULL,
 	situacao varchar(200) NOT NULL,
-	data date NOT NULL,
+	data_fisc date NOT NULL,
 	funcionario varchar(11) NOT NULL,
 	imovel integer NOT NULL
 	);
 
+
+--- INSERINDO CHAVES PRIMARIAS ---------
 ALTER TABLE imovel
 	ADD CONSTRAINT imovel_pkey PRIMARY KEY (id_imovel);
 
-ALTER TABLE casa
-	ADD CONSTRAINT casa_pkey PRIMARY KEY (id_casa);
-
 ALTER TABLE condominio
 	ADD CONSTRAINT condominio_pkey PRIMARY KEY (id_cond);
-
-ALTER TABLE apartamento
-	ADD CONSTRAINT apartamento_pkey PRIMARY KEY (id_apt);
-
-ALTER TABLE comercial
-	ADD CONSTRAINT comercial_pkey PRIMARY KEY (id_comerc);
-
-ALTER TABLE terreno
-	ADD CONSTRAINT terreno_pkey PRIMARY KEY (id_terreno);
 
 ALTER TABLE cliente
 	ADD CONSTRAINT cliente_pkey PRIMARY KEY (cpf);
 
 ALTER TABLE funcionario
-	ADD CONSTRAINT func_pkey PRIMARY KEY (id_func);
-
-ALTER TABLE cargo
-	ADD CONSTRAINT cargo_pkey PRIMARY KEY (id);
-
-ALTER TABLE forma_pagamento
-	ADD CONSTRAINT pagamento_pkey PRIMARY KEY (id_pagar);
+	ADD CONSTRAINT func_pkey PRIMARY KEY (cpf);
 
 ALTER TABLE contrato
 	ADD CONSTRAINT contrato_pkey PRIMARY KEY (id_contrato);
 
-ALTER TABLE aluga
-	ADD CONSTRAINT aluga_pkey PRIMARY KEY (id_aluguel);
+ALTER TABLE fiscaliza
+	ADD CONSTRAINT fiscaliza_pkey PRIMARY KEY (data_fisc);
 
-ALTER TABLE pertence
-	ADD CONSTRAINT pertence_pkey PRIMARY KEY (id_pertence);
+-----  INSERINDO CHAVES ESTRANGEIRAS --------------
+
+ALTER TABLE apartamento
+    ADD CONSTRAINT apt_condominio FOREIGN KEY (condominio) REFERENCES condominio(id_cond);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT cliente_contrato FOREIGN KEY (cliente) REFERENCES cliente(cpf);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT funcionario_contrato FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
+
+ALTER TABLE contrato
+    ADD CONSTRAINT imovel_contrato FOREIGN KEY (imovel_id) REFERENCES imovel(id_imovel);
 
 ALTER TABLE fiscaliza
-	ADD CONSTRAINT fiscaliza_pkey PRIMARY KEY id_fiscaliza);
+    ADD CONSTRAINT fiscaliza_funcionario FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
+
+ALTER TABLE fiscaliza
+    ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
 
 ALTER TABLE imovel
     ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES casa(id_casa);
@@ -219,41 +188,17 @@ ALTER TABLE imovel
 ALTER TABLE imovel
     ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES terreno(id_terreno);
 
-ALTER TABLE apartamento
-    ADD CONSTRAINT apt_condominio FOREIGN KEY (condominio) REFERENCES condominio(id_cond);
+---- Trigger histórico -----------
 
-ALTER TABLE funcionario
-    ADD CONSTRAINT cargo_func FOREIGN KEY (id_cargo) REFERENCES cargo(id);
+create or replace function copiar_para_histórico() RETURN TRIGGER AS $$
+	BEGIN
+		INSERT INTO Historico(new.id_contrato, new.comissao, new.data_trans, new.forma_pag, new.funcionario, new.imovel_id, new.fiado, new.indicacoes, new.transacao, new.id_cliente)
+		return NEW
+	END;
+$$ language 'plpgsql';
 
-ALTER TABLE contrato
-    ADD CONSTRAINT pagamento_contrato FOREIGN KEY (forma_pag) REFERENCES forma_pagamento(id_pagar);
+create trigger copiar_contrato
+before insert or update on contrato
+for each ROWexecute procedure copiar_para_histórico()
 
-ALTER TABLE contrato
-    ADD CONSTRAINT funcionario_contrato FOREIGN KEY (funcionario) REFERENCES funcionario(id_func);
-
-ALTER TABLE contrato
-    ADD CONSTRAINT imovel_contrato FOREIGN KEY (imovel_id) REFERENCES imovel(id_imovel);
-
-ALTER TABLE aluga
-    ADD CONSTRAINT aluguel_contrato FOREIGN KEY (contrato) REFERENCES contrato(id_contrato);
-
-ALTER TABLE aluga
-    ADD CONSTRAINT aluguel_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
-
-ALTER TABLE compra
-    ADD CONSTRAINT compra_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
-
-ALTER TABLE compra
-    ADD CONSTRAINT compra_contrato FOREIGN KEY (contrato) REFERENCES contrato(id_contrato);
-
-ALTER TABLE pertence
-    ADD CONSTRAINT pertence_cliente FOREIGN KEY (cliente_cpf) REFERENCES cliente(cpf);
-
-ALTER TABLE pertence
-    ADD CONSTRAINT pertence_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
-
-ALTER TABLE fiscaliza
-    ADD CONSTRAINT fiscaliza_funcionario FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
-
-ALTER TABLE fiscaliza
-    ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
+-----------------------------------------------------------------
