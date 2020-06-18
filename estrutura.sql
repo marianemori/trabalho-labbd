@@ -171,3 +171,18 @@ ALTER TABLE fiscaliza
 
 ALTER TABLE fiscaliza
     ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
+
+---- Trigger histórico -----------
+
+create or replace function copiar_para_histórico() RETURN TRIGGER AS $$
+	BEGIN
+		INSERT INTO Historico(new.id_contrato, new.comissao, new.data_trans, new.forma_pag, new.funcionario, new.imovel_id, new.fiado, new.indicacoes, new.transacao, new.id_cliente)
+		return NEW
+	END;
+$$ language 'plpgsql';
+
+create trigger copiar_contrato
+before insert or update on contrato
+for each ROWexecute procedure copiar_para_histórico()
+
+-----------------------------------------------------------------
