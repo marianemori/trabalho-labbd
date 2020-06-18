@@ -36,6 +36,7 @@ CREATE TABLE imovel(
 	);
 
 CREATE TABLE casa(
+	id_casa integer SERIAL NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -43,7 +44,7 @@ CREATE TABLE casa(
 	num_vagas integer NOT NULL,
 	armario boolean NOT NULL,
 	descricao varchar(100)
-	)INHERITS(imovel);
+	);
 
 CREATE TABLE condominio(
 	id_cond integer NOT NULL,
@@ -54,6 +55,7 @@ CREATE TABLE condominio(
 	)
 
 CREATE TABLE apartamento(
+	id_apt integer SERIAL NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -63,18 +65,20 @@ CREATE TABLE apartamento(
 	descricao varchar(100),
 	andar integer NOT NULL,
 	condominio integer NOT NULL
-	)INHERITS(imovel);
+	);
 
 CREATE TABLE comercial(
+	id_comerc integer SERIAL NOT NULL,
 	qtd_banheiros integer NOT NULL,
 	qtd_comodos integer NOT NULL,
-	)INHERITS(imovel);
+	);
 
 CREATE TABLE terreno(
+	id_terreno integer SERIAL NOT NULL,
 	largura decimal NOT NULL,
 	comprimento decimal NOT NULL,
 	declive varchar(8) NOT NULL
-)INHERITS(imovel);
+);
 
 CREATE TABLE cliente(
 	cpf varchar(11) NOT NULL,
@@ -93,7 +97,7 @@ CREATE TABLE cliente(
 	proprietario BOOLEAN,
 	email varchar(100) NOT NULL,
 	CONSTRAINT empregado_sexo_check CHECK ((sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar])))
-	);
+);
 
 CREATE TABLE funcionario(
 	cpf varchar(11) NOT NULL,
@@ -171,6 +175,18 @@ ALTER TABLE fiscaliza
 
 ALTER TABLE fiscaliza
     ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES casa(id_casa);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_apt FOREIGN KEY (id_imovel) REFERENCES apartamento(id_apt);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_comercial FOREIGN KEY (id_imovel) REFERENCES comercial(id_comerc);
+
+ALTER TABLE imovel
+    ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES terreno(id_terreno);
 
 ---- Trigger histórico -----------
 
