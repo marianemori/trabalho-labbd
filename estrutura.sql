@@ -126,11 +126,7 @@ CREATE TABLE contrato(
 	fiador varchar(100),
 	indicacoes varchar(100),
 	transacao varchar(50) NOT NULL,
-<<<<<<< HEAD
 	cliente varchar(11) NOT NULL
-=======
-	id_cliente integer NOT NULL
->>>>>>> master
 );
 
 CREATE TABLE fiscaliza(
