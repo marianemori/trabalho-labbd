@@ -51,8 +51,8 @@ CREATE TABLE condominio(
 	nome varchar(40) NOT NULL,
 	portaria boolean NOT NULL,
 	academia boolean NOT NULL,
-	valor_condominio decimal NOT NULL,
-	)
+	valor_condominio decimal NOT NULL
+	);
 
 CREATE TABLE apartamento(
 	id_apt integer SERIAL NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE apartamento(
 CREATE TABLE comercial(
 	id_comerc integer SERIAL NOT NULL,
 	qtd_banheiros integer NOT NULL,
-	qtd_comodos integer NOT NULL,
+	qtd_comodos integer NOT NULL
 	);
 
 CREATE TABLE terreno(
