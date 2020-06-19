@@ -52,7 +52,11 @@ CREATE TABLE condominio(
 	portaria boolean NOT NULL,
 	academia boolean NOT NULL,
 	valor_condominio decimal NOT NULL
+<<<<<<< HEAD
 );
+=======
+	);
+>>>>>>> 6e9995f176a769cffd1b5e88484dab856027394c
 
 CREATE TABLE apartamento(
 	id_imovel integer NOT NULL,
@@ -126,7 +130,11 @@ CREATE TABLE contrato(
 	fiador varchar(100),
 	indicacoes varchar(100),
 	transacao varchar(50) NOT NULL,
+<<<<<<< HEAD
 	cliente varchar(11) NOT NULL                     
+=======
+	cliente varchar(11) NOT NULL
+>>>>>>> 6e9995f176a769cffd1b5e88484dab856027394c
 );
 
 CREATE TABLE fiscaliza(
