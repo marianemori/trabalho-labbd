@@ -272,10 +272,10 @@ insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (35, 2, 4);
 insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (36, 2, 2);
 
  			--terreno ---
-insert into comercial (id_imovel, largura, comprimento, declive) values (41, 20, 5, 0);
-insert into comercial (id_imovel, largura, comprimento, declive) values (42, 15, 7, 0);
-insert into comercial (id_imovel, largura, comprimento, declive) values (43, 27, 5, 0);
-insert into comercial (id_imovel, largura, comprimento, declive) values (44, 17, 9, 0);
-insert into comercial (id_imovel, largura, comprimento, declive) values (45, 18, 6, 0);
+insert into terreno (id_imovel, largura, comprimento, declive) values (41, 20, 5, 0);
+insert into terreno (id_imovel, largura, comprimento, declive) values (42, 15, 7, 0);
+insert into terreno (id_imovel, largura, comprimento, declive) values (43, 27, 5, 0);
+insert into terreno (id_imovel, largura, comprimento, declive) values (44, 17, 9, 0);
+insert into terreno (id_imovel, largura, comprimento, declive) values (45, 18, 6, 0);
 
 ----------------------------------------------------------------------------------------
