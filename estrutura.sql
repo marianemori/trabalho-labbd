@@ -279,10 +279,10 @@ insert into terreno (id_imovel, largura, comprimento, declive) values (44, 17, 9
 insert into terreno (id_imovel, largura, comprimento, declive) values (45, 18, 6, 0);
 
              -- Contrato ---
-insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (1111111, 1000.0, '2012-02-12', 'Cheque', '77777888888', 11, 'aluguel', '12345678912');
+insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, fiador, indicacoes, transacao, cliente) values (1111111, 1000.0, '2012-02-12', 'Cheque', '77777888888', 11, 'Demi Lovato', 'Kendall e Kyle', 'aluguel', '12345678912');
 insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (22222222, 500.0, '2015-11-02', 'Boleto', '77777888888', 12, 'compra', '00987765213');
-insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (33333333, 800.0, '2019-02-02', 'Transferencia', '66663333221', 21, 'aluguel', '23456098765');
-insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (44444444, 1000.0, '2019-02-02', 'Transferencia', '66663333221', 22, 'aluguel', '54328901234');
+insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, fiador, indicacoes, transacao, cliente) values (33333333, 800.0, '2019-02-02', 'Transferencia', '66663333221', 21,'Kim', 'North e Psalm West' , 'aluguel', '23456098765');
+insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, fiador, indicacoes, transacao, cliente) values (44444444, 1000.0, '2019-02-02', 'Transferencia', '66663333221', 22, 'Lana', 'Ariana e Miley', 'aluguel', '54328901234');
 insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (55555555, 2000.0, '2015-05-05', 'Cheque', '99999955555', 23, 'compra', '93989182938');
 insert into contrato (id_contrato, comissao, data_trans, forma_pag, funcionario, imovel_id, transacao, cliente) values (66666666, 1000.0, '2015-01-01', 'Depósito', '77777888888', 31, 'venda', '76272126162');
 
