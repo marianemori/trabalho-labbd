@@ -20,7 +20,7 @@ CREATE SCHEMA "imobiliaria"
 SET search_path TO "imobiliaria";
 
 CREATE TABLE imovel(
-	id_imovel integer SERIAL NOT NULL,
+	id_imovel integer UNIQUE NOT NULL,
 	estado_atual boolean NOT NULL,
 	foto bytea NOT NULL,
 	data_construcao date NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE imovel(
 	);
 
 CREATE TABLE casa(
-	id_casa integer SERIAL NOT NULL,
+	id_imovel integer NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -51,11 +51,11 @@ CREATE TABLE condominio(
 	nome varchar(40) NOT NULL,
 	portaria boolean NOT NULL,
 	academia boolean NOT NULL,
-	valor_condominio decimal NOT NULL,
-	)
+	valor_condominio decimal NOT NULL
+);
 
 CREATE TABLE apartamento(
-	id_apt integer SERIAL NOT NULL,
+	id_imovel integer NOT NULL,
 	qtd_quartos integer NOT NULL,
 	qtd_suites integer,
 	qtd_salaestar integer NOT NULL, 
@@ -64,17 +64,17 @@ CREATE TABLE apartamento(
 	armario boolean NOT NULL,
 	descricao varchar(100),
 	andar integer NOT NULL,
-	condominio integer NOT NULL
+	id_cond integer NOT NULL
 	);
 
 CREATE TABLE comercial(
-	id_comerc integer SERIAL NOT NULL,
+	id_imovel integer NOT NULL,
 	qtd_banheiros integer NOT NULL,
-	qtd_comodos integer NOT NULL,
+	qtd_comodos integer NOT NULL
 	);
 
 CREATE TABLE terreno(
-	id_terreno integer SERIAL NOT NULL,
+	id_imovel integer NOT NULL,
 	largura decimal NOT NULL,
 	comprimento decimal NOT NULL,
 	declive varchar(8) NOT NULL
@@ -117,7 +117,7 @@ CREATE TABLE funcionario(
 	);
 
 CREATE TABLE contrato(
-	id_contrato integer SERIAL NOT NULL,
+	id_contrato integer UNIQUE NOT NULL,
 	comissao decimal NOT NULL,
 	data_trans date NOT NULL,
 	forma_pag varchar(100) NOT NULL,
@@ -126,14 +126,14 @@ CREATE TABLE contrato(
 	fiador varchar(100),
 	indicacoes varchar(100),
 	transacao varchar(50) NOT NULL,
-	id_cliente integer NOT NULL
+	cliente varchar(11) NOT NULL                     
 );
 
 CREATE TABLE fiscaliza(
 	situacao varchar(200) NOT NULL,
 	data_fisc date NOT NULL,
 	funcionario varchar(11) NOT NULL,
-	imovel integer NOT NULL
+	id_imovel integer NOT NULL
 	);
 
 
@@ -159,10 +159,10 @@ ALTER TABLE fiscaliza
 -----  INSERINDO CHAVES ESTRANGEIRAS --------------
 
 ALTER TABLE apartamento
-    ADD CONSTRAINT apt_condominio FOREIGN KEY (condominio) REFERENCES condominio(id_cond);
+    ADD CONSTRAINT apt_condominio FOREIGN KEY (id_cond) REFERENCES condominio(id_cond);
 
 ALTER TABLE contrato
-    ADD CONSTRAINT cliente_contrato FOREIGN KEY (cliente) REFERENCES cliente(cpf);
+    ADD CONSTRAINT cliente FOREIGN KEY (cliente) REFERENCES cliente(cpf);
 
 ALTER TABLE contrato
     ADD CONSTRAINT funcionario_contrato FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
@@ -174,19 +174,19 @@ ALTER TABLE fiscaliza
     ADD CONSTRAINT fiscaliza_funcionario FOREIGN KEY (funcionario) REFERENCES funcionario(cpf);
 
 ALTER TABLE fiscaliza
-    ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (imovel) REFERENCES imovel(id_imovel);
+    ADD CONSTRAINT fiscaliza_imovel FOREIGN KEY (id_imovel) REFERENCES imovel(id_imovel);
 
-ALTER TABLE imovel
-    ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES casa(id_casa);
+ALTER TABLE casa
+    ADD CONSTRAINT imovel_casa FOREIGN KEY (id_imovel) REFERENCES imovel(id_imovel);
 
-ALTER TABLE imovel
-    ADD CONSTRAINT imovel_apt FOREIGN KEY (id_imovel) REFERENCES apartamento(id_apt);
+ALTER TABLE apartamento
+    ADD CONSTRAINT imovel_apt FOREIGN KEY (id_imovel) REFERENCES imovel(id_imovel);
 
-ALTER TABLE imovel
-    ADD CONSTRAINT imovel_comercial FOREIGN KEY (id_imovel) REFERENCES comercial(id_comerc);
+ALTER TABLE comercial
+    ADD CONSTRAINT imovel_comercial FOREIGN KEY (id_imovel) REFERENCES imovel(id_imovel);
 
-ALTER TABLE imovel
-    ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES terreno(id_terreno);
+ALTER TABLE terreno
+    ADD CONSTRAINT imovel_terreno FOREIGN KEY (id_imovel) REFERENCES imovel(id_imovel);
 
 ---- Trigger histórico -----------
 
