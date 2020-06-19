@@ -21,7 +21,7 @@ SET search_path TO "imobiliaria";
 
 CREATE TABLE imovel(
 	id_imovel integer UNIQUE NOT NULL,
-	estado_atual boolean NOT NULL,
+	estado_atual varchar(20) NOT NULL,
 	foto bytea NOT NULL,
 	data_construcao date NOT NULL,
 	area numeric,
@@ -52,11 +52,7 @@ CREATE TABLE condominio(
 	portaria boolean NOT NULL,
 	academia boolean NOT NULL,
 	valor_condominio decimal NOT NULL
-<<<<<<< HEAD
 );
-=======
-	);
->>>>>>> 6e9995f176a769cffd1b5e88484dab856027394c
 
 CREATE TABLE apartamento(
 	id_imovel integer NOT NULL,
@@ -130,11 +126,7 @@ CREATE TABLE contrato(
 	fiador varchar(100),
 	indicacoes varchar(100),
 	transacao varchar(50) NOT NULL,
-<<<<<<< HEAD
 	cliente varchar(11) NOT NULL                     
-=======
-	cliente varchar(11) NOT NULL
->>>>>>> 6e9995f176a769cffd1b5e88484dab856027394c
 );
 
 CREATE TABLE fiscaliza(
@@ -209,4 +201,81 @@ create trigger copiar_contrato
 before insert or update on contrato
 for each ROWexecute procedure copiar_para_histórico()
 
------------------------------------------------------------------
+--------------- Inserções ----------------------
+             -- Cliente ---
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('12345678912', 'cleyton', '1199999999', 'M', 'Solteiro', 'Professor', 'dua lipa', 20, 'nostalgia', 'Rio de janeiro', 'RJ', false, true, false, 'cleytinho@hotmail.com' );
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('00987765213', 'Ana carolina', '1188888888', 'F', 'Casada', 'Cantora', 'Lady gaga', 32, 'Chromatica', 'Natal', 'RN', true, false, false, 'anacarolinda@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('93989182938', 'Robson', '1177777777', 'M', 'Casado', 'Engenheiro Civil', 'Doja Cat', 27, 'Amalia', 'São paulo', 'São Paulo', true, false, false, 'robsonmuitopegadorele@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('88888888888', 'Martinho', '7399999999', 'M', 'Casado', 'Medico', 'Anitta', 85, 'kisses', 'palmas', 'TO', false, false, true, 'martin@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('21234567893', 'Juliano', '739876542', 'M', 'Solteiro', 'Agente da shield', 'beyonce', 65, 'lemonade', 'joinville', 'SC', false, false, true, 'julinho@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('54328901234', 'Jurema', '886543234', 'F', 'Solteira', 'Vingadora', 'Pablo vittar', 20, '111', 'vitória', 'ES', false, false, true, 'xureminha@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('34569876546', 'Natalia', '1166666666', 'F', 'Casada', 'Engenheira Aeronáutica', 'Carlie XCX', 77, 'Charli', 'porto alegre', 'RS', true, false, false, 'natimaravilhosa@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('23456098765', 'Samira closa', '1122222222', 'F', 'Solteira', 'Empresária', 'Gloria groove', 53, 'Alegoria', 'Recife', 'PE', false, true, false, 'closecertoprovale@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('56982345651', 'Carter', '1111111111', 'F', 'Casada', 'Diretora da Shield', 'Aretuza lovi', 45, 'Mercadinho', 'Porto de galinhas', 'PE', false, true, false, 'agentecarter@hotmail.com');
+insert into cliente (cpf, nome, telefone, sexo, estado_civil, profissao, rua, numero, bairro, cidade, estado, comprador, locatario, proprietario, email) values ('76272126162', 'Marquinhos', '5555555555', 'M', 'Solteiro', 'Desenvolvedor', 'Ariana Grande', 56, 'Thank u, next', 'salvador', 'BA', false, false, true, 'marquinholittlemonster@hotmail.com');
+
+
+            --Funcionario---
+
+insert into funcionario (cpf, cargo, nome, tel_contato, tel_celular, data_ingresso, salario_liquido, usuario, senha, rua, numero, bairro, cidade, estado) values ('77777888888', 'Gerente', 'Cher', '1165738787', '11999881111', '1960-06-20', 15000, 'APrimeiraDiva', 'ninguemmesubstitui', 'Sam Smith', 80, 'im ready', 'são paulo', 'SP');
+insert into funcionario (cpf, cargo, nome, tel_contato, tel_celular, data_ingresso, salario_liquido, usuario, senha, rua, numero, bairro, cidade, estado) values ('66663333221', 'Vendedor', 'Madonna', '1170707070', '11970707070', '1990-06-01', 5000, 'MotherDasMaricona', 'ArrasoMuito', 'Miley Cyrus', 02, 'she is comming', 'são paulo', 'SP');
+insert into funcionario (cpf, cargo, nome, tel_contato, tel_celular, data_ingresso, salario_liquido, usuario, senha, rua, numero, bairro, cidade, estado) values ('99999955555', 'Vendedor', 'Britney', '1140028922', '11969692424', '1997-07-16', 5000, 'LanceiAfarofa', 'donadaforadoseculo21', 'katy perry', 24, 'witness', 'são paulo', 'SP');
+
+			-- Imovel ---
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (11, 'Excelente', '0101010101', '2010-12-12', 23, 900000, 15000, '2012-01-20', 'alice', 10, 'chromatica', 'itacare', 'BA');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (12, 'Bom', '0101010101', '2015-10-01', 130, 400000, 10000, '2017-02-02', 'free woman', 5, 'chromatica', 'itacare', 'BA');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (13, 'Bom', '0101010101', '2014-06-07', 150, 350000, 10000, '2014-12-12', 'ouro', 24, '111', 'guaruja', 'SP');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (14, 'Bom', '0101010101', '2011-10-10', 100, 350000, 10000, '2012-01-01', 'rajadão', 2, '111', 'guaruja', 'SP' );
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (15, 'Regular', '0101010101', '2012-12-01', 120, 400000, 150000, '2013-02-05', 'physical', 55, 'nostalgia', 'vitoria', 'ES');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (21, true, '0101010101', '2019-01-01', 120, 500000, 20000, '2020-02-02', 'bad romance', 456, 'fame monster', 'recife', 'PE');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (22, true, '0101010101', '2015-01-01', 150, 800000, 20000, '2017-02-02', 'bad romance', 456, 'fame monster', 'recife', 'PE');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (23, true, '0101010101', '2014-01-01', 76, 400000, 20000, '2015-02-02', 'guy', 23, 'artpop', 'Natal', 'RN');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (24, true, '0101010101', '2013-01-01', 97, 450000, 20000, '2015-02-02', 'guy', 23, 'artpop', 'Natal', 'RN');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (25, true, '0101010101', '2012-01-01', 85, 400000, 20000, '2014-02-02', 'buzina', 65, 'não para não', 'Campo Grande', 'MS');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (31, true, '0101010101', '2015-01-01', 50, 200000, 10000, '2016-02-02', 'immortal', 1124, 'fallen', 'São Paulo', 'SP');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (32, true, '0101010101', '2013-01-01', 35, 150000, 10000, '2014-02-02', 'broken', 2134, 'seether', 'Cuiaba', 'MT');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (33, true, '0101010101', '2014-01-01', 35, 150000, 10000, '2015-02-02', 'good enough', 4567, 'the open door', 'Cuiaba', 'MT');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (34, true, '0101010101', '2016-01-01', 80, 300000, 10000, '2017-02-02', 'Lithium', 7654, 'fallen', 'São Paulo', 'SP');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (35, true, '0101010101', '2018-01-01', 80, 300000, 10000, '2019-02-02', 'juicy', 8976, 'Hot Pink', 'Campo Grande', 'MS');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (36, true, '0101010101', '2010-01-01', 60, 250000, 10000, '2012-02-02', 'Rules', 7623, 'Hot Pink', 'Campo Grande', 'MS');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (41, true, '0101010101', '2013-01-01', 100, 100000, 10000, '2014-02-02', 'supalonely', 50, 'benee', 'Ibirataia', 'BA');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (42, true, '0101010101', '2014-01-01', 105, 50000, 10000, '2015-02-02', 'Glitter', 876, 'benee', 'Ibirataia', 'BA');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (43, true, '0101010101', '2012-01-01', 135, 60000, 10000, '2013-02-02', 'Rare', 678, 'Rare', 'Ipiau', 'BA');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (44, true, '0101010101', '2012-02-02', 153, 150000, 10000, '2013-02-02', 'Black Widow', 90, 'Reclassified', 'Vinhedos', 'SP');
+insert into imovel (id_imovel, estado_atual, foto, data_construcao, area, valor_real, valor_imobiliaria, data_disp, rua, numero, bairro, cidade, estado) values (45, true, '0101010101', '2015-10-10', 108, 160000, 10000, '2016-03-03', 'lola', 23, 'wicked lips', 'Jundiai', 'SP');
+
+			--casa ---
+insert into casa(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao) values (11, 3, 1, 2, 1, 9, true, 'casa bem localizada, no bloco wonderland');
+insert into casa(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao) values (12, 2, 1, 1, 1, 2, true, 'armarios nos quartos e sala.');
+insert into casa(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao) values (13, 2, 3, 1, 1, 4, true, 'revestida de vibro, estilo industrial');
+insert into casa(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao) values (14, 2, 2, 1, 1, 3, true, 'Casa necessita de pintura, tem estilo gótico.');
+insert into casa(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao) values (15, 2, 3, 1, 1, 3, true, 'Estilo escandinavo, a beira-mar.');
+
+           --Condominio ---
+insert into condominio(id_cond, nome, portaria, academia, valor_condominio) values (1, 'Little Monsters', true, true, 650);
+insert into condominio(id_cond, nome, portaria, academia, valor_condominio) values (2, 'Fallen', true, true, 950);
+insert into condominio(id_cond, nome, portaria, academia, valor_condominio) values (3, 'Poker face', true, true, 550);
+
+			-- Apartamento ---
+insert into apartamento(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao, andar, id_cond) values (21, 1, 1, 1, 1, 1, true, 'possível fazer modificações', 9, 1);
+insert into apartamento(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao, andar, id_cond) values (22, 1, 1, 1, 1, 1, true, 'possível fazer modificações', 15, 1);
+insert into apartamento(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao, andar, id_cond) values (23, 1, 2, 1, 1, 1, true, 'possível fazer modificações', 1, 2);
+insert into apartamento(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao, andar, id_cond) values (24, 1, 2, 1, 1, 1, true, 'possível fazer modificações', 10, 2);
+insert into apartamento(id_imovel, qtd_quartos, qtd_suites, qtd_salaestar, qtd_salajantar, num_vagas, armario, descricao, andar, id_cond) values (25, 2, 1, 1, 1, 1, true, 'possível fazer modificações', 5, 3);
+
+ 			--comercial ---
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (31, 2, 1);
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (32, 2, 1);
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (33, 2, 1);
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (34, 2, 4);
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (35, 2, 4);
+insert into comercial (id_imovel, qtd_banheiros, qtd_comodos) values (36, 2, 2);
+
+ 			--terreno ---
+insert into comercial (id_imovel, largura, comprimento, declive) values (41, 20, 5, 0);
+insert into comercial (id_imovel, largura, comprimento, declive) values (42, 15, 7, 0);
+insert into comercial (id_imovel, largura, comprimento, declive) values (43, 27, 5, 0);
+insert into comercial (id_imovel, largura, comprimento, declive) values (44, 17, 9, 0);
+insert into comercial (id_imovel, largura, comprimento, declive) values (45, 18, 6, 0);
+
+----------------------------------------------------------------------------------------
