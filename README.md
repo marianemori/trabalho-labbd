@@ -1,2 +1,2 @@
-# trabsonlabbd
-Trabalho de LABBD- Sistema de Imobiliária
+# Trabalho de Laboratório de Banco de Dados
+ Sistema de imobiliária
